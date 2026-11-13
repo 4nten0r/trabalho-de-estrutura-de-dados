@@ -61,3 +61,10 @@ void fila_exibir(const Fila *fila) {
     printf("Fim\n");
 }
 
+void fila_liberar(Fila *fila) {
+    int descartado;
+
+    while (fila_dequeue(fila, &descartado)) {
+        /* cada dequeue libera um no */
+    }
+}
