@@ -76,3 +76,19 @@ int bst_remover(NoBST **raiz, int id) {
     return 1;
 }
 
+int bst_listar_em_ordem(const NoBST *raiz) {
+    int total;
+
+    if (raiz == NULL) {
+        return 0;
+    }
+
+    total = bst_listar_em_ordem(raiz->esq);
+    printf("ID: %d | Nome: %s | Categoria: %s | Bairro: %s\n",
+           raiz->dado.id, raiz->dado.nome, raiz->dado.categoria,
+           raiz->dado.bairro);
+    total++;
+    total += bst_listar_em_ordem(raiz->dir);
+    return total;
+}
+
