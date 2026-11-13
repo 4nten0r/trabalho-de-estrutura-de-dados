@@ -105,3 +105,13 @@ StatusLeitura ler_inteiro(const char *prompt, int minimo, int *valor) {
     return LEITURA_OK;
 }
 
+StatusLeitura ler_id(const char *prompt, int *valor) {
+    StatusLeitura status;
+
+    do {
+        status = ler_inteiro(prompt, 1, valor);
+    } while (status == LEITURA_INVALIDA);
+
+    return status;
+}
+
