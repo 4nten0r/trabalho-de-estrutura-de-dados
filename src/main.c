@@ -57,6 +57,22 @@ static void cadastrar_na_bst(NoBST **raiz) {
     }
 }
 
+static void buscar_na_bst(const NoBST *raiz) {
+    const LocalUrbano *local;
+    int id;
+
+    if (ler_id("Informe o ID a buscar: ", &id) != LEITURA_OK) {
+        return;
+    }
+
+    local = bst_buscar(raiz, id);
+    if (local == NULL) {
+        printf("Registro com ID %d nao encontrado.\n", id);
+    } else {
+        imprimir_local(local);
+    }
+}
+
 int main(void) {
     NoBST *raiz = NULL;
     Fila fila;
@@ -79,6 +95,7 @@ int main(void) {
 
         switch (opcao) {
             case 1: cadastrar_na_bst(&raiz); break;
+            case 2: buscar_na_bst(raiz); break;
             case 0: printf("Encerrando...\n"); break;
             default: printf("Opcao invalida. Escolha de 0 a 7.\n"); break;
         }
