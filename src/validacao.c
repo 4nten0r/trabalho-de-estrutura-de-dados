@@ -58,3 +58,32 @@ static StatusLinha ler_linha(char *buffer, size_t tam) {
     return LINHA_LONGA;
 }
 
+int parse_inteiro(const char *texto, int minimo, int *valor) {
+    char copia[TAM_BUFFER];
+    char *fim;
+    long numero;
+
+    if (texto == NULL || valor == NULL || strlen(texto) >= sizeof(copia)) {
+        return 0;
+    }
+
+    strcpy(copia, texto);
+    trim(copia);
+    if (copia[0] == '\0') {
+        return 0;
+    }
+
+    errno = 0;
+    numero = strtol(copia, &fim, 10);
+
+    if (fim == copia || *fim != '\0') { /* nao numerico ou sufixo invalido */
+        return 0;
+    }
+    if (errno == ERANGE || numero > INT_MAX || numero < minimo) {
+        return 0;
+    }
+
+    *valor = (int)numero;
+    return 1;
+}
+
