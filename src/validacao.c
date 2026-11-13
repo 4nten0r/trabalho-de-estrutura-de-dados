@@ -115,3 +115,37 @@ StatusLeitura ler_id(const char *prompt, int *valor) {
     return status;
 }
 
+StatusLeitura ler_texto(const char *prompt, char *destino, size_t tam) {
+    char buffer[TAM_BUFFER];
+    StatusLinha status;
+    size_t tamanho;
+
+    for (;;) {
+        printf("%s", prompt);
+        fflush(stdout);
+
+        status = ler_linha(buffer, sizeof(buffer));
+        if (status == LINHA_EOF) {
+            return LEITURA_EOF;
+        }
+        if (status == LINHA_LONGA) {
+            printf("Texto muito longo (maximo %zu caracteres).\n", tam - 1);
+            continue;
+        }
+
+        trim(buffer);
+        tamanho = strlen(buffer);
+
+        if (tamanho == 0) {
+            printf("Texto invalido: nao pode ser vazio.\n");
+            continue;
+        }
+        if (tamanho >= tam) {
+            printf("Texto muito longo (maximo %zu caracteres).\n", tam - 1);
+            continue;
+        }
+
+        memcpy(destino, buffer, tamanho + 1);
+        return LEITURA_OK;
+    }
+}
