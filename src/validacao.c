@@ -87,3 +87,21 @@ int parse_inteiro(const char *texto, int minimo, int *valor) {
     return 1;
 }
 
+StatusLeitura ler_inteiro(const char *prompt, int minimo, int *valor) {
+    char buffer[TAM_BUFFER];
+    StatusLinha status;
+
+    printf("%s", prompt);
+    fflush(stdout);
+
+    status = ler_linha(buffer, sizeof(buffer));
+    if (status == LINHA_EOF) {
+        return LEITURA_EOF;
+    }
+    if (status == LINHA_LONGA || !parse_inteiro(buffer, minimo, valor)) {
+        printf("Entrada invalida: informe um numero inteiro valido.\n");
+        return LEITURA_INVALIDA;
+    }
+    return LEITURA_OK;
+}
+
