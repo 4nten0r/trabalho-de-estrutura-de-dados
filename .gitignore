@@ -1,0 +1,5 @@
+# Binarios e objetos
+*.o
+*.out
+*.exe
+sistema_bst
