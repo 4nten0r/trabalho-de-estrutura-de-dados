@@ -111,3 +111,8 @@ Cada parte foi desenvolvida em uma branch própria, com um commit descritivo, e 
 | `feature/menu-principal` | `main.c` com o menu |
 | `docs/readme` | este README |
 | `docs/roteiro-testes` | roteiro de testes |
+
+## Declaração de uso de IA
+
+Este projeto foi gerado com apoio de IA (Claude, da Anthropic), a partir dos requisitos fornecidos pelo
+autor. O código foi compilado e testado, e o autor deve revisá-lo e ser capaz de explicá-lo.
