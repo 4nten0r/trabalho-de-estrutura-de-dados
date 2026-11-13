@@ -91,6 +91,14 @@ static void remover_da_bst(NoBST **raiz) {
     }
 }
 
+static void listar_em_ordem(const NoBST *raiz) {
+    if (raiz == NULL) {
+        printf("A BST esta vazia.\n");
+        return;
+    }
+    bst_listar_em_ordem(raiz);
+}
+
 int main(void) {
     NoBST *raiz = NULL;
     Fila fila;
@@ -115,6 +123,7 @@ int main(void) {
             case 1: cadastrar_na_bst(&raiz); break;
             case 2: buscar_na_bst(raiz); break;
             case 3: remover_da_bst(&raiz); break;
+            case 4: listar_em_ordem(raiz); break;
             case 0: printf("Encerrando...\n"); break;
             default: printf("Opcao invalida. Escolha de 0 a 7.\n"); break;
         }
