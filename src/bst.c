@@ -36,3 +36,31 @@ const LocalUrbano *bst_buscar(const NoBST *raiz, int id) {
     return NULL;
 }
 
+int bst_remover(NoBST **raiz, int id) {
+    NoBST *alvo;
+
+    if (*raiz == NULL) {
+        return 0;
+    }
+
+    if (id < (*raiz)->dado.id) {
+        return bst_remover(&(*raiz)->esq, id);
+    }
+    if (id > (*raiz)->dado.id) {
+        return bst_remover(&(*raiz)->dir, id);
+    }
+
+    alvo = *raiz;
+
+    if (alvo->esq == NULL) {        /* 0 filhos ou so filho direito */
+        *raiz = alvo->dir;
+        free(alvo);
+    } else if (alvo->dir == NULL) { /* so filho esquerdo */
+        *raiz = alvo->esq;
+        free(alvo);
+    } else {                        /* 2 filhos: ainda nao tratado */
+        return 0;
+    }
+    return 1;
+}
+
