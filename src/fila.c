@@ -51,3 +51,13 @@ int fila_dequeue(Fila *fila, int *id) {
     return 1;
 }
 
+void fila_exibir(const Fila *fila) {
+    const NoFila *atual;
+
+    printf("Inicio -> ");
+    for (atual = fila->inicio; atual != NULL; atual = atual->prox) {
+        printf("%d -> ", atual->id);
+    }
+    printf("Fim\n");
+}
+
