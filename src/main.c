@@ -18,6 +18,45 @@ static void exibir_menu(void) {
     printf("0- Encerrar\n");
 }
 
+static void imprimir_local(const LocalUrbano *local) {
+    printf("ID: %d | Nome: %s | Categoria: %s | Bairro: %s\n",
+           local->id, local->nome, local->categoria, local->bairro);
+}
+
+static void cadastrar_na_bst(NoBST **raiz) {
+    LocalUrbano local;
+    int id;
+
+    memset(&local, 0, sizeof(local));
+
+    if (ler_id("Informe o ID: ", &id) != LEITURA_OK) {
+        return;
+    }
+    if (bst_buscar(*raiz, id) != NULL) {
+        printf("Erro: ja existe um registro com o ID %d.\n", id);
+        return;
+    }
+    local.id = id;
+
+    if (ler_texto("Nome: ", local.nome, TAM_TEXTO) != LEITURA_OK ||
+        ler_texto("Categoria: ", local.categoria, TAM_TEXTO) != LEITURA_OK ||
+        ler_texto("Bairro: ", local.bairro, TAM_TEXTO) != LEITURA_OK) {
+        return;
+    }
+
+    switch (bst_inserir(raiz, &local)) {
+        case BST_OK:
+            printf("Registro cadastrado com sucesso.\n");
+            break;
+        case BST_DUPLICADO:
+            printf("Erro: ja existe um registro com o ID %d.\n", id);
+            break;
+        case BST_SEM_MEMORIA:
+            printf("Erro: memoria insuficiente.\n");
+            break;
+    }
+}
+
 int main(void) {
     NoBST *raiz = NULL;
     Fila fila;
@@ -39,6 +78,7 @@ int main(void) {
         }
 
         switch (opcao) {
+            case 1: cadastrar_na_bst(&raiz); break;
             case 0: printf("Encerrando...\n"); break;
             default: printf("Opcao invalida. Escolha de 0 a 7.\n"); break;
         }
