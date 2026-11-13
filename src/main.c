@@ -73,6 +73,24 @@ static void buscar_na_bst(const NoBST *raiz) {
     }
 }
 
+static void remover_da_bst(NoBST **raiz) {
+    int id;
+
+    if (*raiz == NULL) {
+        printf("A BST esta vazia. Nada para remover.\n");
+        return;
+    }
+    if (ler_id("Informe o ID a remover: ", &id) != LEITURA_OK) {
+        return;
+    }
+
+    if (bst_remover(raiz, id)) {
+        printf("Registro %d removido da BST.\n", id);
+    } else {
+        printf("Registro com ID %d nao encontrado.\n", id);
+    }
+}
+
 int main(void) {
     NoBST *raiz = NULL;
     Fila fila;
@@ -96,6 +114,7 @@ int main(void) {
         switch (opcao) {
             case 1: cadastrar_na_bst(&raiz); break;
             case 2: buscar_na_bst(raiz); break;
+            case 3: remover_da_bst(&raiz); break;
             case 0: printf("Encerrando...\n"); break;
             default: printf("Opcao invalida. Escolha de 0 a 7.\n"); break;
         }
