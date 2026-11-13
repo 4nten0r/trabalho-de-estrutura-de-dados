@@ -36,6 +36,14 @@ const LocalUrbano *bst_buscar(const NoBST *raiz, int id) {
     return NULL;
 }
 
+/* Retorna o no de menor ID da subarvore (o mais a esquerda). */
+static const NoBST *menor_no(const NoBST *raiz) {
+    while (raiz->esq != NULL) {
+        raiz = raiz->esq;
+    }
+    return raiz;
+}
+
 int bst_remover(NoBST **raiz, int id) {
     NoBST *alvo;
 
@@ -58,8 +66,12 @@ int bst_remover(NoBST **raiz, int id) {
     } else if (alvo->dir == NULL) { /* so filho esquerdo */
         *raiz = alvo->esq;
         free(alvo);
-    } else {                        /* 2 filhos: ainda nao tratado */
-        return 0;
+    } else {                        /* 2 filhos: usa o sucessor em-ordem */
+        const NoBST *sucessor = menor_no(alvo->dir);
+        int id_sucessor = sucessor->dado.id;
+
+        alvo->dado = sucessor->dado;
+        bst_remover(&alvo->dir, id_sucessor);
     }
     return 1;
 }
