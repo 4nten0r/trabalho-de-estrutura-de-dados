@@ -92,3 +92,12 @@ int bst_listar_em_ordem(const NoBST *raiz) {
     return total;
 }
 
+void bst_liberar(NoBST **raiz) {
+    if (*raiz == NULL) {
+        return;
+    }
+    bst_liberar(&(*raiz)->esq);
+    bst_liberar(&(*raiz)->dir);
+    free(*raiz);
+    *raiz = NULL;
+}
