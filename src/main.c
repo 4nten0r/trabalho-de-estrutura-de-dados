@@ -99,6 +99,38 @@ static void listar_em_ordem(const NoBST *raiz) {
     bst_listar_em_ordem(raiz);
 }
 
+static void inserir_na_fila(Fila *fila) {
+    int id;
+
+    if (ler_id("Informe o ID a inserir na fila: ", &id) != LEITURA_OK) {
+        return;
+    }
+
+    if (fila_enqueue(fila, id)) {
+        printf("ID %d inserido no fim da fila.\n", id);
+    } else {
+        printf("Erro: memoria insuficiente.\n");
+    }
+}
+
+static void remover_da_fila(Fila *fila) {
+    int id;
+
+    if (fila_dequeue(fila, &id)) {
+        printf("ID %d removido do inicio da fila.\n", id);
+    } else {
+        printf("A fila esta vazia. Nada para remover.\n");
+    }
+}
+
+static void exibir_fila(const Fila *fila) {
+    if (fila_vazia(fila)) {
+        printf("A fila esta vazia.\n");
+        return;
+    }
+    fila_exibir(fila);
+}
+
 int main(void) {
     NoBST *raiz = NULL;
     Fila fila;
@@ -124,6 +156,9 @@ int main(void) {
             case 2: buscar_na_bst(raiz); break;
             case 3: remover_da_bst(&raiz); break;
             case 4: listar_em_ordem(raiz); break;
+            case 5: inserir_na_fila(&fila); break;
+            case 6: remover_da_fila(&fila); break;
+            case 7: exibir_fila(&fila); break;
             case 0: printf("Encerrando...\n"); break;
             default: printf("Opcao invalida. Escolha de 0 a 7.\n"); break;
         }
