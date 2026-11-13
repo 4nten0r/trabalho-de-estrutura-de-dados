@@ -26,3 +26,13 @@ StatusBST bst_inserir(NoBST **raiz, const LocalUrbano *local) {
     return BST_OK;
 }
 
+const LocalUrbano *bst_buscar(const NoBST *raiz, int id) {
+    while (raiz != NULL) {
+        if (id == raiz->dado.id) {
+            return &raiz->dado;
+        }
+        raiz = (id < raiz->dado.id) ? raiz->esq : raiz->dir;
+    }
+    return NULL;
+}
+
